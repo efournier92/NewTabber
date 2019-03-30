@@ -1,6 +1,9 @@
+import { MaterialModule } from './modules/material.module';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
-import { AngularFireModule, FirebaseOptions } from '@angular/fire';
+import { FormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -11,15 +14,7 @@ import { GridComponent } from './components/grid/grid.component';
 import { GridsContainerComponent } from './components/grids-container/grids-container.component';
 import { LinkIconComponent } from './components/link-icon/link-icon.component';
 import { AuthComponent } from './components/auth/auth.component';
-// import { FirebaseConfig, FirebaseAuthConfig } from './auth.config';
-
-const FirebaseConfig: FirebaseOptions = {
-  apiKey: "AIzaSyCZ3SF_hEtcNPw8loFKnoHnVu7IMHzKOOY",
-  authDomain: "newtabber-2019.firebaseapp.com",
-  databaseURL: "https://newtabber-2019.firebaseio.com",
-  projectId: "newtabber-2019",
-  storageBucket: "newtabber-2019.appspot.com",
-};
+import { FireConfig } from './fire.config';
 
 @NgModule({
   declarations: [
@@ -28,18 +23,21 @@ const FirebaseConfig: FirebaseOptions = {
     GridsContainerComponent,
     LinkIconComponent,
     AuthComponent,
-    AngularFireModule.initializeApp(FirebaseConfig),
-    AngularFireStorageModule,
-    AngularFireAuthModule,
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
-    FirebaseUIModule.forRoot(FirebaseAuthConfig),
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpModule,
+    FormsModule,
+    MaterialModule,
+    AngularFireModule.initializeApp(FireConfig.firebase),
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    FirebaseUIModule.forRoot(FireConfig.auth),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
